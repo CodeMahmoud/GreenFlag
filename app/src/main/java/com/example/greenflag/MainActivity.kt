@@ -249,11 +249,11 @@ fun SignUpScreen(modifier: Modifier = Modifier,  onSubmitClick: () -> Unit) {
 @Composable
 fun ConfirmationScreen(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier.fillMaxSize().background(Color.White),
+        modifier = modifier.fillMaxSize().background(Color.Black),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("Sign Up Form Starts Here!", color = Color.Black, fontSize = 24.sp)
+        Text("Account Created, please check your email", color = Color.White, fontSize = 24.sp)
     }
 }
 
