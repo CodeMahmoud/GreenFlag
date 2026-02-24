@@ -51,14 +51,13 @@ class MainActivity : ComponentActivity() {
                 var showSignUp by rememberSaveable() { mutableStateOf(false) }
                 var showFormSubmissionConfirmationScreen by rememberSaveable() { mutableStateOf(false) }
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    if (showSignUp) {
+                    if (showFormSubmissionConfirmationScreen) {
+                        ConfirmationScreen(modifier = Modifier.padding(innerPadding))
+                    } else if (showSignUp) {
                         SignUpScreen(
                             modifier = Modifier.padding(innerPadding),
                             onSubmitClick = { showFormSubmissionConfirmationScreen = true }
                         )
-                        if(showFormSubmissionConfirmationScreen) {
-                            ConfirmationScreen(modifier = Modifier.padding(innerPadding))
-                        }
                     } else {
                     LandingPage(
                         modifier = Modifier.padding(innerPadding),
@@ -146,11 +145,6 @@ fun LandingPage(modifier: Modifier = Modifier, onGetStartedClick: () -> Unit) {
 
     }
 
-//@Preview
-//@Composable
-//fun SignUpScreen(modifier: Modifier = Modifier) {
-//
-//}
 
 @Composable
 fun SignUpScreen(modifier: Modifier = Modifier,  onSubmitClick: () -> Unit) {
@@ -158,8 +152,13 @@ fun SignUpScreen(modifier: Modifier = Modifier,  onSubmitClick: () -> Unit) {
     var password by rememberSaveable() { mutableStateOf("") }
     var confirmPassword by rememberSaveable() { mutableStateOf("") }
 
-    val isError = email.isNotEmpty() && !email.contains("@")
+    val isEmailValid = email.contains("@") && email.contains(".")
+
+    val emailError = email.isNotEmpty() && !isEmailValid
     val passwordError = password != confirmPassword && confirmPassword.isNotEmpty()
+
+    val passwordsMatch = password == confirmPassword && password.isNotEmpty()
+    val isFormValid = isEmailValid && passwordsMatch
 
 
     Column(
@@ -182,9 +181,9 @@ fun SignUpScreen(modifier: Modifier = Modifier,  onSubmitClick: () -> Unit) {
             onValueChange = { email = it},
             label = { Text("Email") },
             modifier = Modifier.fillMaxWidth(),
-            isError = isError,
+            isError = emailError,
             supportingText = {
-                if (isError) {
+                if (emailError) {
                     Text(
                         text = "Please enter a valid email address"
                     )
@@ -211,7 +210,7 @@ fun SignUpScreen(modifier: Modifier = Modifier,  onSubmitClick: () -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 isError = passwordError,
                 supportingText = {
-                    if (confirmPassword != password) {
+                    if (passwordError) {
                         Text(
                             text = "Passwords don't match"
                         )
@@ -227,6 +226,7 @@ fun SignUpScreen(modifier: Modifier = Modifier,  onSubmitClick: () -> Unit) {
         modifier = Modifier
             .wrapContentSize()
             .clickable(
+                enabled = isFormValid,
                 role = Role.Button,
                 onClick = { onSubmitClick()  },
             ),
@@ -234,11 +234,13 @@ fun SignUpScreen(modifier: Modifier = Modifier,  onSubmitClick: () -> Unit) {
     ) {
         Image(
             painter = painterResource(id = R.drawable.gradient_button_background),
-            contentDescription = null
+            contentDescription = null,
+            alpha = if (isFormValid) 1.0f else 0.5f
         )
         Text(
             "Create an account",
-            color = Color.White
+            color = if (isFormValid) Color.White else Color.Gray
+
         )
     }
     }
