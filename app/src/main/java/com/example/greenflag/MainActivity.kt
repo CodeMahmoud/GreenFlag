@@ -165,8 +165,8 @@ fun SignUpScreen(modifier: Modifier = Modifier,  onSubmitClick: () -> Unit) {
         modifier = modifier
             .background(Color.Black)
             .fillMaxSize()
-            .padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp), // Adds even gaps between fields
+            .padding(20.dp, 35.dp, 0.dp, 0.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
             Text("Please enter your information",
@@ -176,51 +176,93 @@ fun SignUpScreen(modifier: Modifier = Modifier,  onSubmitClick: () -> Unit) {
                 )
 
         Row() {
-        TextField(
-            value = email,
-            onValueChange = { email = it},
-            label = { Text("Email") },
-            modifier = Modifier.fillMaxWidth(),
-            isError = emailError,
-            supportingText = {
-                if (emailError) {
-                    Text(
-                        text = "Please enter a valid email address"
-                    )
-                }
-            }
-            )
+            Column() {
+                Text(
+                    "Email address",
+                    color = Color.White,
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.Light,
+                    modifier = Modifier.padding(0.dp, 0.dp)
+                )
 
-        }
-        Row() {
-            TextField(
-                value = password,
-                onValueChange = {password = it},
-                label = { Text("Password") },
-                modifier = Modifier.fillMaxWidth(),
+                Spacer(modifier = Modifier.height((16.dp)))
 
-            )
-
-        }
-        Row() {
-            TextField(
-                value = confirmPassword,
-                onValueChange = {confirmPassword = it},
-                label = { Text("Confirm Password") },
-                modifier = Modifier.fillMaxWidth(),
-                isError = passwordError,
-                supportingText = {
-                    if (passwordError) {
-                        Text(
-                            text = "Passwords don't match"
-                        )
+                TextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text("Email") },
+                    modifier = Modifier.fillMaxWidth(),
+                    isError = emailError,
+                    supportingText = {
+                        if (emailError) {
+                            Text(
+                                text = "Please enter a valid email address"
+                            )
+                        }
                     }
+                )
+            }
+        }
+        Row() {
+            Column {
+                Text(
+                    "Password",
+                    color = Color.White,
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.Light,
+                    modifier = Modifier.padding(0.dp, 0.dp)
+                )
+                Spacer(modifier = Modifier.height((16.dp)))
+                TextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text("Password") },
+                    modifier = Modifier.fillMaxWidth(),
 
-                }
-            )
+                    )
+            }
+        }
+        Row() {
+            Column() {
+                Text(
+                    "Confirm password",
+                    color = Color.White,
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.Light,
+                    modifier = Modifier.padding(0.dp, 0.dp)
+                )
+                Spacer(modifier = Modifier.height((16.dp)))
+                TextField(
+                    value = confirmPassword,
+                    onValueChange = { confirmPassword = it },
+                    label = { Text("Confirm Password") },
+                    modifier = Modifier.fillMaxWidth(),
+                    isError = passwordError,
+                    supportingText = {
+                        if (passwordError) {
+                            Text(
+                                text = "Passwords don't match"
+                            )
+                        }
 
+                    }
+                )
+            }
         }
     Spacer(modifier = Modifier.weight(1f))
+        Row {
+            Column() {
+                Text("Your password should have a minimum of 8 characters and contain at least one number," +
+                        " one uppercase and one lower case letter. You can use special characters."
+                    ,
+                    color = Color.White,
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.Light,
+                    modifier = Modifier.padding(0.dp, 0.dp)
+                )
+            }
+        }
+        Spacer(modifier = Modifier.weight(1f))
 
     Box(
         modifier = Modifier
