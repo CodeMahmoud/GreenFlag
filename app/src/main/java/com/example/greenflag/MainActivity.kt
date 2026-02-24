@@ -32,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
@@ -79,7 +80,8 @@ fun LandingPage(modifier: Modifier = Modifier, onGetStartedClick: () -> Unit) {
         modifier = Modifier
             .background(Color.Black)
             .fillMaxSize()
-            .padding(90.dp)
+//            .padding(90.dp)
+            .padding(28.dp),
 
     ) {
         Image(
@@ -165,7 +167,7 @@ fun SignUpScreen(modifier: Modifier = Modifier,  onSubmitClick: () -> Unit) {
         modifier = modifier
             .background(Color.Black)
             .fillMaxSize()
-            .padding(20.dp, 35.dp, 0.dp, 0.dp),
+            .padding(28.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -250,6 +252,7 @@ fun SignUpScreen(modifier: Modifier = Modifier,  onSubmitClick: () -> Unit) {
             }
         }
     Spacer(modifier = Modifier.weight(1f))
+
         Row {
             Column() {
                 Text("Your password should have a minimum of 8 characters and contain at least one number," +
@@ -280,11 +283,12 @@ fun SignUpScreen(modifier: Modifier = Modifier,  onSubmitClick: () -> Unit) {
             alpha = if (isFormValid) 1.0f else 0.5f
         )
         Text(
-            "Create an account",
+            "Next",
             color = if (isFormValid) Color.White else Color.Gray
 
         )
     }
+
     }
 
 
